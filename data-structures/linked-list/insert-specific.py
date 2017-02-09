@@ -1,10 +1,5 @@
-#!/bin/python
-#Insert a node at a specific position in a linked list
-#Hackerrank.com
-
 """
- Insert Node at the begining of a linked list
- head input could be None as well for empty list
+ Delete Node at a given position in a linked list
  Node is defined as
  
  class Node(object):
@@ -16,24 +11,31 @@
  return back the head of the linked list in the below method. 
 """
 
-def InsertNth(head, data, position):
-    node = Node()
-    node.data = data
+def Delete(head, position):
+    if head == None:
+        return
+    
     temp = head
-    prev = Node()
     
     if position == 0:
-        node.next = head
-        head = node
-        return head
-    else:
-        
-        while position > 0:
-            prev = temp
-            temp = temp.next
-            position -= 1
-            
-        prev.next = node
-        node.next = temp
+        head = temp.next
+        temp = None
         return head
     
+    for i in range(position - 1):
+        temp = temp.next
+        if temp == None:
+            break
+    
+    if temp == None:
+        return
+    if temp.next == None:
+        return
+    
+    next = temp.next.next
+    temp.next = None
+    temp.next = next
+    
+    return head
+    
+  
