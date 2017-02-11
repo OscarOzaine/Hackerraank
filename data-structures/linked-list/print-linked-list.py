@@ -16,8 +16,3 @@ def print_list(head):
     while node != None:
         print node.data
         node = node.next
-    
-  
-  
-  
-  
