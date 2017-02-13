@@ -1,4 +1,4 @@
-#Left Rotation
+#Arrays: Left Rotation
 #Hackerrank.com
 #https://www.hackerrank.com/challenges/array-left-rotation
 
