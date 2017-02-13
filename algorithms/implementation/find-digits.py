@@ -19,6 +19,7 @@ for a0 in xrange(t):
     digits_arr = [int(d) for d in str(digits)]
     
     count = 0
+    for digit in digits_arr: 
         
         if digit != 0:
             if (digits % digit == 0):
