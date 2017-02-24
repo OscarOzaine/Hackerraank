@@ -31,8 +31,8 @@ def isInCircle(i, j):
 def isInside(x1, y1, x2, y2, x3, y3, x, y):
     
     denominator = ((y2 - y3)*(x1 - x3) + (x3 - x2)*(y1 - y3))
-    a = ((y2 - y3)*(x - x3) + (x3 - x2)*(y - y3)) / denominator
-    b = ((y3 - y1)*(x - x3) + (x1 - x3)*(y - y3)) / denominator
+    a = ((y2 - y3) * (x - x3) + (x3 - x2) * (y - y3)) / denominator
+    b = ((y3 - y1) * (x - x3) + (x1 - x3) * (y - y3)) / denominator
     c = 1 - a - b
         
     return 0 <= a and a <= 1 and 0 <= b and b <= 1 and 0 <= c and c <= 1;
@@ -68,14 +68,10 @@ def isInSquare(i, j):
 for i in range(0, h):
     for j in range(0, w):
         if isInCircle(i, j):
-            #sys.stdout.write('#')
             sys.stdout.write('#')
-            #print '#',
         elif isInSquare(i, j):
             sys.stdout.write('#')
-            #print '#',
         else:
             sys.stdout.write('.')
-            #print '.',
     print 
 
