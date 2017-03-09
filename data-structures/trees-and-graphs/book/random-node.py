@@ -10,20 +10,21 @@ class TreeNode:
 		self.data = data
 		self.size = 1
 
-	def getRandomNode(self):
-		if self.left == None:
+	def getRandomNode(self, root):
+
+		if root.left == None:
 			leftSize = 0
 		else:
-			leftSize = self.left.size
+			leftSize = root.left.size
 
-		index = random.randint(0, self.size)
-		
+		index = random.randint(0, root.size - 1)
+
 		if index < leftSize:
-			return self.getRandomNode()
+			return self.getRandomNode(root.left)
 		elif index == leftSize:
-			return self
+			return root
 		else:
-			return self.getRandomNode(self.right)
+			return self.getRandomNode(root.right)
 
 
 	def insertInOrder(self, data):
@@ -65,22 +66,9 @@ class TreeNode:
 
 
 array = [5, 7, 2]
-#array = sorted(array)
-#node = createMinimalBST(array)
-
-#node.insertArray(array)
 
 node = TreeNode(5)
 node.insertInOrder(7)
 node.insertInOrder(2)
 
-print node.data
-print node.left.data
-print node.right.data
-print
-
-random = node.getRandomNode()
-
-if random != None:
-	print random.data
-print 
+print node.getRandomNode(node)
