@@ -1,3 +1,6 @@
+## Candy Replenishing Robot
+## https://www.hackerrank.com/contests/w30/challenges/candy-replenishing-robot
+
 def getCandies(bowl_size, candies, time):
     candysum = 0
     new_bowl_size = bowl_size
