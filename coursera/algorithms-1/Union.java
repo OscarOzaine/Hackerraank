@@ -1,4 +1,8 @@
 /*
+Coursera: Algorithms Part 1
+Week 1
+Implementation of Quick Find Union and minor improvement
+
 input:
 10
 4 3
