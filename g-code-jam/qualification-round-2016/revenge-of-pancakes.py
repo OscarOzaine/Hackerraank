@@ -3,7 +3,7 @@ import sys
 def countHappy(pancakes):
 	counter = 0
 	for i in range(1, len(pancakes)):
-		if pancakes[i] != pancakes[i-1]:
+		if pancakes[i] != pancakes[i - 1]:
 			counter += 1
 
 	if pancakes[-1] == "+":
