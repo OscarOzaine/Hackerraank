@@ -1,4 +1,3 @@
-package assignment;
 
 import java.lang.ArrayIndexOutOfBoundsException;
 import edu.princeton.cs.algs4.StdRandom;

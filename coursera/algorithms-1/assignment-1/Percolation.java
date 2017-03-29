@@ -1,10 +1,10 @@
-package assignment;
 
 import edu.princeton.cs.algs4.WeightedQuickUnionUF;
 
 public class Percolation 
 {
     private boolean[][] opened;
+    private int openedSites = 0;
     private int top = 0;
     private int bottom;
     private int size;
@@ -23,6 +23,7 @@ public class Percolation
     public void open(int i, int j) 
     {
         opened[i - 1][j - 1] = true;
+        this.openedSites += 1;
         if (i == 1)
             this.quickFind.union(getQFIndex(i, j), this.top);
         
@@ -64,8 +65,14 @@ public class Percolation
         return this.quickFind.connected(this.top, this.bottom);
     }
 
+    public int numberOfOpenSites()
+    {
+        return this.openedSites;
+    }
+
     private int getQFIndex(int i, int j) 
     {
         return this.size * (i - 1) + j;
     }
+
 }
