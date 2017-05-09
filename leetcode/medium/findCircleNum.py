@@ -1,55 +1,39 @@
 class Solution(object):
-	def removeKey(self, d, key):
-		r = dict(d)
-		print r
-		del r[key]
+	def dfs(self, M, node, seen):
 
-		print r
-		return r
+		for nei, adj in enumerate(M[node]):
+			print nei, adj
+			if adj and nei not in seen:
+				seen.add(nei)
+				self.dfs(M, nei, seen)
+
+		print
+		return seen
+
+
+	
 
 	def findCircleNum(self, M):
-		circles = {}
-		for i in range(len(M)):
-			for j in range(len(M)):
 
-				if i != j:
-					if M[i][j] == 1:
+		N = len(M)
+		seen = set()
 
-						if i not in circles:
-							circles[i] = [j]
-						elif j not in circles[i]:
-							circles[i].append(j)
+		circles = 0
+		for i in xrange(N):
+			#print i
+			if i not in seen:
+				seen = self.dfs(M, i, seen)
+				circles+=1
+		#print 
+		return circles
 
-						if j not in circles:
-							circles[j] = [i]
-						elif i not in circles[j]:
-							circles[j].append(i)
 
-		#circles = range(M)
-		res = len(M)
-		print res
-		print 
 
-		circs = circles.copy()#[:]
 
-		for i in circles:
-			#print circs
-			#print circs.keys()
-			#print circs.values()
-			#print circles[i]
-			#print circs.keys()
-			#print 
-			if i in circs.values():
-				print 'yep'
-				print i, circles[i]
-				circs = self.removeKey(circs, i)
-				
-
-		print circs
-                
 
 solution = Solution()
 
-#solution.findCircleNum([[1,1,0], [1,1,0], [0,0,1]])
-
-solution.findCircleNum([[1,1,0], [1,1,1], [0,1,1]])
+circles = solution.findCircleNum([[1,1,0], [1,1,0], [0,0,1]])
+#print circles
+circles = solution.findCircleNum([[1,1,0], [1,1,1], [0,1,1]])
+#print circles
