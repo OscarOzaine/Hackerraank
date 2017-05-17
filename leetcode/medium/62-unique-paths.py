@@ -16,18 +16,17 @@ class Solution(object):
 	def getNeighbors(self, matrix, posx, posy, maxx, maxy):
 		neighbors = []
 		if posx < maxx:
-			neighbors.append([posx+1, posy])
+			neighbors.append((posx+1, posy))
 
 		if posx > 0:
-			neighbors.append([posx-1, posy])
+			neighbors.append((posx-1, posy))
 
 		if posy < maxy:
-			neighbors.append([posx, posy+1])
+			neighbors.append((posx, posy+1))
 
 		if posy > 0:
-			neighbors.append([posx, posy-1])
+			neighbors.append((posx, posy-1))
 
-		#neighbors = [int(x) for x in neighbors: if
 		return neighbors
 
 
@@ -39,74 +38,55 @@ class Solution(object):
 			mat = [int(y) for y in xrange(n)]
 			matrix[x] = mat
 			
-			#print matrix[x]
-			graph[x] = mat
-			graph[x] = {}
 			for y in matrix[x]:
-				graph[x][y] = {}
-				graph[x][y] = self.getNeighbors(matrix, x, y, m, n)
+				graph[(x, y)] = {}
+				graph[(x, y)] = self.getNeighbors(matrix, x, y, m, n)
 
 
-		queue = [x for x in graph[0][0]]
-
-		print self.dijkstra(graph, [0,0], [m-1, n-1])
-
-
-	def dijkstra(self, graph, src, dest, visited=[], distances={}, predecessors={}):
-		""" calculates a shortest path tree routed in src
-		"""    
-		# a few sanity checks
-		if src not in graph:
-			raise TypeError('The root of the shortest path tree cannot be found')
-		if dest not in graph:
-			raise TypeError('The target of the shortest path cannot be found')    
-			# ending condition
-		if src == dest:
-			# We build the shortest path and display it
-			path=[]
-			pred=dest
-			while pred != None:
-				path.append(pred)
-				pred=predecessors.get(pred,None)
-			print('shortest path: '+str(path)+" cost="+str(distances[dest])) 
-		else:
-			# if it is the initial  run, initializes the cost
-			if not visited: 
-				distances[src]=0
-			# visit the neighbors
-			for neighbor in graph[src] :
-				if neighbor not in visited:
-					new_distance = distances[src] + graph[src][neighbor]
-					if new_distance < distances.get(neighbor,float('inf')):
-						distances[neighbor] = new_distance
-						predecessors[neighbor] = src
-			# mark as visited
-			visited.append(src)
-			# now that all neighbors have been visited: recurse                         
-			# select the non visited node with lowest distance 'x'
-			# run Dijskstra with src='x'
-			unvisited={}
-			for k in graph:
-				if k not in visited:
-					unvisited[k] = distances.get(k,float('inf'))        
-			x=min(unvisited, key=unvisited.get)
-
-			self.dijkstra(graph, x, dest, visited, distances, predecessors)
-
-
-	def bfs(self, graph, start, end):
-
-		if start == end:
-			return 
-		print end
-
-
-		#queue = [graph[0][0]]
-		#while queue:
-		#	last = queue.pop(0)
-		#	print last
-
+		paths = self.find_all_paths(graph, (0,0), (m-1, n-1))
 		
+		minn = 999999999
+		for i in paths:
+			if len(i) < minn:
+				minn = len(i)
+				countmin = 0
+			elif len(i) == minn:
+				countmin+=1
+			
+		print countmin
+		
+
+		#print paths
+
+
+	def find_all_paths(self, graph, start, end, path=[], countmin=0, minn=100):
+		path = path + [start]
+		if start == end:
+			return [path, countmin]
+		if not graph.has_key(start):
+			return []
+
+		paths = []
+		for node in graph[start]:
+			if node not in path:
+				newpaths = self.find_all_paths(graph, node, end, path, countmin, minn)
+				
+				if len(newpaths)>0:
+					print newpaths
+					for newpath in newpaths[0]:
+						#print newpath
+						if len(newpath) < minn:
+							minn = len(newpath)
+							countmin = 0
+						elif len(newpath) == minn:
+							countmin += 1
+
+						paths.append(newpath)
+		#print countmin
+		return [paths, countmin]
+		
+
+
 
 
 
