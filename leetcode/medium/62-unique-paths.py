@@ -11,7 +11,23 @@
 #X X X
 #X X X
 
+
 class Solution(object):
+
+	def uniquePaths(self, m, n):
+		aux = [[1 for x in range(n)] for x in range(m)]
+		print aux
+		for i in range(1, m):
+			for j in range(1, n):
+				aux[i][j] = aux[i][j-1] + aux[i-1][j]
+
+		print 
+		print aux
+		return aux[-1][-1]
+	
+
+	countermin = 0
+	min_value = 999999
 
 	def getNeighbors(self, matrix, posx, posy, maxx, maxy):
 		neighbors = []
@@ -30,7 +46,7 @@ class Solution(object):
 		return neighbors
 
 
-	def uniquePaths(self, m, n):
+	def uniquePaths2(self, m, n):
 
 		matrix = [int(x) for x in xrange(m)]
 		graph = {}
@@ -45,47 +61,37 @@ class Solution(object):
 
 		paths = self.find_all_paths(graph, (0,0), (m-1, n-1))
 		
-		minn = 999999999
-		for i in paths:
-			if len(i) < minn:
-				minn = len(i)
-				countmin = 0
-			elif len(i) == minn:
-				countmin+=1
-			
-		print countmin
-		
-
-		#print paths
+		return self.countermin
 
 
-	def find_all_paths(self, graph, start, end, path=[], countmin=0, minn=100):
+	def find_all_paths(self, graph, start, end, path=[]):
 		path = path + [start]
 		if start == end:
-			return [path, countmin]
+
+			if len(path) < self.min_value:
+				self.min_value = len(path)
+				self.countermin = 0
+			elif len(path) == self.min_value:
+				self.countermin += 1
+
+			return [path]
 		if not graph.has_key(start):
 			return []
-
 		paths = []
 		for node in graph[start]:
 			if node not in path:
-				newpaths = self.find_all_paths(graph, node, end, path, countmin, minn)
-				
-				if len(newpaths)>0:
-					print newpaths
-					for newpath in newpaths[0]:
+				if len(path) < self.min_value:
+					#print path
+					newpaths = self.find_all_paths(graph, node, end, path)
+
+					for newpath in newpaths:
 						#print newpath
-						if len(newpath) < minn:
-							minn = len(newpath)
-							countmin = 0
-						elif len(newpath) == minn:
-							countmin += 1
-
 						paths.append(newpath)
-		#print countmin
-		return [paths, countmin]
-		
+				else:
+					return [path]
 
+		return paths
+		
 
 
 
@@ -93,4 +99,4 @@ class Solution(object):
 
 solution = Solution()
 
-solution.uniquePaths(3, 7)
+print solution.uniquePaths(7, 13)
