@@ -18,29 +18,15 @@ void permutate( char[] str, int index )
 permutate( "abcdefgh", 0 );
 '''
 
-def swap(string, i, j):
-    lst = list(string);
-    lst[i], lst[j] = lst[j], lst[i]
-    return ''.join(lst)
-
-def permutate(string, index):
-    string = list(string)
-
-    i = 0
-    if index == len(string):
+def perm(string, i):
+    if i == len(string) - 1:
         print ''.join(string)
-        return ''.join(string)
+    else:
+        for j in range(i, len(string)):
+            string[i], string[j] = string[j], string[i]
+            perm(string, i + 1)
+            string[i], string[j] = string[j], string[i]
 
-    x = index
-
-    for x in range(index, len(string)):
-        #print x, string, string[x]
-        #print index, string, string[index]
-
-        #temp = string[x]
-        swap(string, index, x)
-        permutate(''.join(string), index + 1)
-        swap(string, index, x)
-        
-
-print permutate('abcde', 0)
+    return string
+  
+print perm(list('abcde'), 0)

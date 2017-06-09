@@ -1,9 +1,5 @@
 
 class Node:
-
-	data = None
-	next = None
-
 	def __init__(self, data):
 		self.data = data
 		self.next = None
@@ -42,49 +38,58 @@ class UnorderedList:
 		current = self.head
 		counter = 0
 		while current != None:
-			counter+1
+			counter+=1
 			current = current.getNext()
 		return counter
 
+	def search(self, item):
 
+		current = self.head
 
+		while current != None:
+			if current.data == item:
+				return True
+			current = current.getNext()
 
+		return False
 
+	def remove(self, item):
 
-# class LinkedList:
+		current = self.head
 
-# 	data = None
-# 	next = None
+		while current != None:
+			if current.data == item:
+				temp = current.getNext()
+				if temp:
+					current.data = temp.data
+					current.next = temp.next
+				else:
+					current.data = None
+					current.next = None
+				return True
 
+			current = current.getNext()
 
-# 	def __init__(self, data):
-# 		self.data = data
-
-# 	def getData(self):
-# 		return self.data
-
-
-# 	def addItem(self, item):
-
-# 		node = self
-# 		print node.data
-# 		while node.next != None:
-# 			print node.data
-# 			node = node.next
-
-# 		node.data = item
-
-
+		return False
 
 
 mlist = UnorderedList()
 mlist.add(1)
 mlist.add(2)
 mlist.add(3)
+mlist.add(4)
+mlist.add(5)
+mlist.add(6)
+
+
+print mlist.search(2)
+print mlist.search(4)
+
+mlist.remove(2)
+mlist.remove(4)
+
+print mlist.search(2)
+print mlist.search(4)
+
 print mlist.size()
-#while mlist.head != None:
-	#print mlist.head.data
-	#mlist = mlist.head
-#print mlist.head
-#print mlist.data
-#print mlist.next.data
+
