@@ -9,10 +9,8 @@ def groupingDishes(dishes):
                 
     result = []
     for d in sorted(dictionary):
-        if len(dictionary[d])> 1:
+        if len(dictionary[d]) > 1:
             result.append([d] + sorted(dictionary[d]))
             
     return result
-    
-        
 
